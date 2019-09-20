@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Route, Router, Switch } from 'react-router';
+import { appHistory } from './misc';
+import AboutPage from './screens/AboutPage';
+import HomePage from './screens/HomePage';
+
+// TODO extract
+const NotFoundPage: React.FC = () => {
+  return (
+    <div>
+      <h1>Not found</h1>
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router history={appHistory}>
+      <Switch>
+        <Route exact={true} path="/" component={HomePage}/>
+        <Route exact={true} path="/about" component={AboutPage}/>
+        <Route component={NotFoundPage}/>
+      </Switch>
+    </Router>
   );
 }
 
